@@ -5,9 +5,11 @@ import { ProductsModule } from './products/products.module';
 import { CommonModule } from './common/common.module';
 import { SeedModule } from './seed/seed.module';
 
+// Define el decorador Module que recibe un objeto de configuración
 @Module({
   imports: [
     ConfigModule.forRoot(),
+    // Importa el módulo TypeOrmModule con la configuración de la base de datos
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DB_HOST,

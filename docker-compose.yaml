@@ -1,11 +1,17 @@
+# Es la versión de docker-compose que se está utilizando
 version: '3'
-
+# Se definen los servicios que se van a utilizar
 services:
+  # Se define el servicio de la aplicación
   db:
+    # Se define la imagen que se va a utilizar
     image: postgres:16.3
+    # Se define el reinicio del servicio que en este caso es siempre
     restart: always
+    # Se definen los puertos que se van a utilizar
     ports:
       - "5432:5432"
+    # Se definen las variables de entorno que se van a utilizar  
     environment:
       POSTGRES_DB: ${DB_NAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}

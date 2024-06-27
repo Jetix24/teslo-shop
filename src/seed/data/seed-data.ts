@@ -1,3 +1,4 @@
+// Hace una interfaz SeedProduct que define la estructura de los productos
 interface SeedProduct {
   description: string;
   images: string[];
@@ -11,13 +12,16 @@ interface SeedProduct {
   gender: 'men' | 'women' | 'kid' | 'unisex';
 }
 
+// Define un tipo ValidSizes que es igual a 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | 'XXXL'
 type ValidSizes = 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | 'XXXL';
 type ValidTypes = 'shirts' | 'pants' | 'hoodies' | 'hats';
 
+// Define una interfaz SeedData que define la estructura de los datos de semilla
 interface SeedData {
   products: SeedProduct[];
 }
 
+// Define una constante initialData que es igual a un objeto con un arreglo de productos
 export const initialData: SeedData = {
   products: [
     {
