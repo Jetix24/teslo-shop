@@ -13,6 +13,8 @@ import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { PaginationDto } from 'src/common/dtos/pagination.dto';
+import { ApiResponse } from '@nestjs/swagger';
+import { Product } from './entities';
 
 // Controlador que maneja las peticiones relacionadas con los productos. pone como base el endpoint /products
 @Controller('products')
@@ -21,6 +23,10 @@ export class ProductsController {
 
   // Define el método create que recibe un createProductDto y llama al método create del servicio
   @Post()
+  // Define las respuestas de la petición
+  @ApiResponse({ status: 201, description: 'Product created', type: Product })
+  @ApiResponse({ status: 400, description: 'Bad request' })
+  @ApiResponse({ status: 403, description: 'Frobideen. TOken related' })
   // Determina con el Body que el método recibe un cuerpo en la petición y se valida con el CreateProductDto
   // El body es para enviar datos en el cuerpo de la petición
   create(@Body() createProductDto: CreateProductDto) {
