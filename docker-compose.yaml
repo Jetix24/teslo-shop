@@ -3,6 +3,31 @@ version: '3'
 # Se definen los servicios que se van a utilizar
 services:
   # Se define el servicio de la aplicación
+  tesloshop:
+  # Se define el servicio de la aplicación
+    depends_on:
+      - db
+    # Se define la construcción de la imagen
+    build:
+      # Se define el contexto de la imagen
+      context: .
+      dockerfile: Dockerfile
+    # Se define el nombre de la imagen  
+    image: tesloshop-docker
+    # Se define el reinicio del servicio que en este caso es siempre
+    restart: always
+    # Se definen los puertos que se van a utilizar
+    ports:
+     - "${PORT}:${PORT}"
+    # Se definen las variables de entorno que se van a utilizar
+    environment:
+      PORT: ${PORT}
+      DB_NAME: ${DB_NAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_USERNAME: ${DB_USERNAME}
+  # Se define el servicio de la aplicación
   db:
     # Se define la imagen que se va a utilizar
     image: postgres:16.3
@@ -10,7 +35,7 @@ services:
     restart: always
     # Se definen los puertos que se van a utilizar
     ports:
-      - "5432:5432"
+      - "${DB_PORT}:${DB_PORT}"
     # Se definen las variables de entorno que se van a utilizar  
     environment:
       POSTGRES_DB: ${DB_NAME}

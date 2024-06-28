@@ -1,0 +1,37 @@
+# Es la versión de docker-compose que se está utilizando
+version: '3'
+# Se definen los servicios que se van a utilizar
+services:
+  tesloshop:
+    depends_on:
+      - db
+    build:
+      context: .
+      dockerfile: Dockerfile  
+    image: tesloshop-docker
+    restart: always
+    ports:
+     - "${PORT}:${PORT}"
+    environment:
+      PORT: ${PORT}
+      DB_NAME: ${DB_NAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_USERNAME: ${DB_USERNAME}
+  # Se define el servicio de la aplicación
+  db:
+    # Se define la imagen que se va a utilizar
+    image: postgres:16.3
+    # Se define el reinicio del servicio que en este caso es siempre
+    restart: always
+    # Se definen los puertos que se van a utilizar
+    ports:
+      - "${DB_PORT}:${DB_PORT}"
+    # Se definen las variables de entorno que se van a utilizar  
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    container_name: teslodb
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
